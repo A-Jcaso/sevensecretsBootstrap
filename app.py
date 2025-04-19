@@ -1,6 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, request
 from models import Services
+from send_email import send_email as send_email_function
 import sqlite3
+
 conexion = sqlite3.connect("sevensecrets_db.db",
                            check_same_thread=False)
 
@@ -25,5 +27,21 @@ def service_detail (service_id):
     else:
         return "Servicio no encontrado", 404
 
+@app.route("/booking")
+def booking():
+        return render_template("booking.html")
+
+@app.route('/send-email', methods=['POST']) 
+def send_email():
+    if request.method == 'POST':
+        nombre_cliente = request.form['nombreCliente']
+        apelido_cliente = request.form['apellidoCliente']
+        email = request.form['email']
+        subject = "Mensaje de: " + nombre_cliente + " " + apelido_cliente + " | Correo: " + email 
+        body = request.form['mensaje']
+        send_email_function(subject, body)
+    return redirect(url_for('booking'))
+
 if __name__=='__main__':
     app.run(debug = True) 
+    
