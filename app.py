@@ -35,10 +35,11 @@ def booking():
 def send_email():
     if request.method == 'POST':
         nombre_cliente = request.form['nombreCliente']
-        apelido_cliente = request.form['apellidoCliente']
+        apellido_cliente = request.form['apellidoCliente']
+        celular_cliente = request.form['numero_celular']
         email = request.form['email']
-        subject = "Mensaje de: " + nombre_cliente + " " + apelido_cliente + " | Correo: " + email 
-        body = request.form['mensaje']
+        subject = "Mensaje de: " + nombre_cliente + " " + apellido_cliente + " | Correo: " + email + " | Número de celular: " + celular_cliente
+        body = request.form['mensaje1']
         send_email_function(subject, body)
     return redirect(url_for('booking'))
 

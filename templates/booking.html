@@ -17,6 +17,12 @@
             font-weight: 700;
             font-style: normal;
           }
+        h2{
+            font-family: Rubik, sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 900;
+            font-style: normal; 
+        }
         .contenedor{
             padding:10px;
         }
@@ -59,27 +65,34 @@
         </div>
     </header>
     <body>
-        <h1 style="text-align: center;">RESERVA TU CITA DIAGNOSTICA</h1>
+        <h2 style="text-align: center;">RESERVA TU CITA DIAGNÓSTICA</h2>
         <div class="contenedor">
+            <P>Para reservar su cita diagónistica, déjenos un mensaje con sus datos</p>
             <p><strong>DEJA TU MENSAJE</strong></p>
             <!--Formulario de contacto para enviar un correo electrónico-->
             <form action="/send-email" method="POST">
                 <div class="mb-3">
-                    <label for="nombreCliente" class="form-label">Nombre del Cliente</label>
+                    <label for="nombreCliente" class="form-label">Nombre(s):</label>
                     <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" required>
                 </div>
                 <div class="mb-3">
-                    <label for="apellidoCliente" class="form-label">Apellidos del Cliente</label>
+                    <label for="apellidoCliente" class="form-label">Apellidos:</label>
                     <input type="text" class="form-control" id="apellidoCliente" name="apellidoCliente" required>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Correo Electrónico</label>
+                  <label for="numero_celular" class="form-label">Número de Celular:</label>
+                  <div class="form-text">Nunca compartiremos tu numero de Celular</div>
+                  <input type="text" class="form-control" id="numero_celular" name="numero_celular" required>
+              </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico:</label>
+                    <div id="emailHelp" class="form-text">Nunca compartiremos tu correo electrónico con nadie</div>
                     <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" required>
-                    <div id="emailHelp" class="form-text">Nunca compartiremos tu correo electrónico con nadie más.</div>
                 </div>
                 <div class="mb-3">
-                    <label for="mensaje" class="form-label">Mensaje</label>
-                    <textarea class="form-control" id="mensaje" name="mensaje" rows="3" required></textarea>
+                    <label for="mensaje" class="form-label"><strong>Mensaje:</strong></label>
+                    <div class="form-text">Con el tratamiento en la que esta interesada</div>
+                    <textarea class="form-control" id="mensaje" name="mensaje1" rows="3" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
