@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Seven Secrets</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
@@ -135,42 +136,9 @@
 </svg>
 
 
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
-        id="bd-theme"
-        type="button"
-        aria-expanded="false"
-        data-bs-toggle="dropdown"
-        
-        aria-label="Toggle theme (auto)">
-  <svg class="bi my-1 theme-icon-active" aria-hidden="true"><use href="#circle-half"></use></svg>
-  <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-</button>
-<ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-  <li>
-    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-      <svg class="bi me-2 opacity-50" aria-hidden="true"><use href="#sun-fill"></use></svg>
-      Light
-      <svg class="bi ms-auto d-none" aria-hidden="true"><use href="#check2"></use></svg>
-    </button>
-  </li>
-  <li>
-    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-      <svg class="bi me-2 opacity-50" aria-hidden="true"><use href="#moon-stars-fill"></use></svg>
-      Dark
-      <svg class="bi ms-auto d-none" aria-hidden="true"><use href="#check2"></use></svg>
-    </button>
-  </li>
-  <li>
-    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-      <svg class="bi me-2 opacity-50" aria-hidden="true"><use href="#circle-half"></use></svg>
-      Auto
-      <svg class="bi ms-auto d-none" aria-hidden="true"><use href="#check2"></use></svg>
-    </button>
-  </li>
-</ul>
-
-    </div>
+<div id="wasa" class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle" type="button">
+  <a href="whatsapp://send?text=&phone=51901090480"> <i class='bx bxl-whatsapp bx-lg'></i></a>
+</div>
 
     
 <header data-bs-theme="dark">
@@ -217,7 +185,7 @@
         <p class="lead text-body-secondary">Tratamientos estéticos de la mejor calidad y cuidado. Productos de primera y atención personalizada. </p>
         <p>
           <a href="booking" class="btn btn-danger my-2">Reserva tu cita</a>
-          <a href="#" class="btn btn-primary my-2">Contáctanos</a>
+          <a href="contacts" class="btn btn-primary my-2">Contáctanos</a>
         </p>
       </div>
     </div> 
@@ -238,7 +206,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a href="/detail{{ p.id }}"class="btn btn-sm btn-ligth">VER</a>
-                  <button type="button" class="btn btn-sm btn-danger">RESERVAR</button>
+                  <a href="booking" type="button" class="btn btn-sm btn-danger">RESERVAR</a>
                 </div>
                 <small class="text-body-secondary">9 mins</small>
               </div>

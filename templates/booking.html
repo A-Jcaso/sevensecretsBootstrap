@@ -18,19 +18,28 @@
             font-style: normal;
           }
         h2{
+            margin: 24px;
             font-family: Rubik, sans-serif;
             font-optical-sizing: auto;
             font-weight: 900;
             font-style: normal; 
         }
         .contenedor{
-            padding:10px;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color:#fff;
+            color: rgb(159, 19, 59);
+            font-family: Arial, sans-serif;
         }
         .button{
             display: flex;
             justify-content: center;
             align-items: center;
         }
+        
         
     </style>
     </head>
@@ -81,23 +90,21 @@
                 </div>
                 <div class="mb-3">
                   <label for="numero_celular" class="form-label">Número de Celular:</label>
-                  <div class="form-text">Nunca compartiremos tu numero de Celular</div>
                   <input type="text" class="form-control" id="numero_celular" name="numero_celular" required>
               </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo Electrónico:</label>
-                    <div id="emailHelp" class="form-text">Nunca compartiremos tu correo electrónico con nadie</div>
-                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" required>
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="correo@gmail.com"required>
                 </div>
                 <div class="mb-3">
                     <label for="mensaje" class="form-label"><strong>Mensaje:</strong></label>
                     <div class="form-text">Con el tratamiento en la que esta interesada</div>
                     <textarea class="form-control" id="mensaje" name="mensaje1" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-danger">Enviar</button>
             </form>
             <div class="button">
-                <a href="/" class="btn btn-danger my-2">Volver al inicio</a>
+                <a href="/" class="btn btn-secondary my-2">Volver al inicio</a>
             </div>
         </div>
         <h4 style="text-align: center;">^-^ ¡Esperamos tu mensaje! ^-^</h4>
