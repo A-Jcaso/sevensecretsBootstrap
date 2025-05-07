@@ -47,6 +47,56 @@ def send_email():
 def contacts():
     return render_template("contacts.html")
 
+@app.route('/templates/form_servicio', methods=['GET'])
+def nuevo_producto():
+    return render_template('form_servicio.html')
+
+# Ruta para procesar el formulario
+@app.route('/templates/form_servicio', methods=['POST'])
+def crear_producto():
+    nombre = request.form.get('nombre')
+    precio = request.form.get('precio')
+
+    # Mostrar en la terminal los datos recibidos
+    print(f"Nombre: {nombre}")
+    print(f"Precio: {precio}")
+
+    return f"Producto '{nombre}' con precio {precio} recibido correctamente"
+
+
+@app.route('/templates/form_clientes', methods=['GET'])
+def nuevo_producto():
+    return render_template('form_clientes.html')
+
+# Ruta para procesar el formulario
+@app.route('/templates/form_clientes', methods=['POST'])
+def crear_producto():
+    nombre = request.form.get('nombre')
+    precio = request.form.get('precio')
+
+    # Mostrar en la terminal los datos recibidos
+    print(f"Nombre: {nombre}")
+    print(f"Precio: {precio}")
+
+    return f"Producto '{nombre}' con precio {precio} recibido correctamente"
+
+
+@app.route('/templates/form_personal', methods=['GET'])
+def nuevo_producto():
+    return render_template('form_personal.html')
+
+# Ruta para procesar el formulario
+@app.route('/templates/form_personal', methods=['POST'])
+def crear_producto():
+    nombre = request.form.get('nombre')
+    precio = request.form.get('precio')
+
+    # Mostrar en la terminal los datos recibidos
+    print(f"Nombre: {nombre}")
+    print(f"Precio: {precio}")
+
+    return f"Producto '{nombre}' con precio {precio} recibido correctamente"
+
 if __name__=='__main__':
     app.run(debug = True) 
     

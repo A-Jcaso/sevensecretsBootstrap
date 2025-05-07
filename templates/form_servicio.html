@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nuevo Servicio</title>
+</head>
+<body>
+    <h1>CrearServicio</h1>
+    <form action="/templates/form_servicio" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" required><br><br>
+
+        <label for="precio">Precio:</label>
+        <input type="number" name="precio" step="0.01" required><br><br>
+
+        <input type="submit" value="Crear">
+    </form>
+</body>
+</html>
