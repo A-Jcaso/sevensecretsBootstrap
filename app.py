@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, flash
 from models import Services
 from send_email import send_email as send_email_function
 import sqlite3
@@ -7,6 +7,7 @@ conexion = sqlite3.connect("sevensecrets_db.db",
                            check_same_thread=False)
 
 app = Flask(__name__)
+app.secret_key = '1234'
 
 @app.route("/") 
 def home():
@@ -64,7 +65,8 @@ def crear_tratamiento():
     print(f"Descripcion: {descripcion}")
     print(f"Imagen: {img}")
 
-    return f"Tratamiento registrado correctamente. {nombre}"
+    flash('Tratamiento registrado correctamente')
+    return redirect(url_for('nuevo_tratamiento'))
 
 ######Nuevo cliente
 @app.route('/templates/form_clientes', methods=['GET'])
@@ -85,7 +87,8 @@ def crear_cliente():
     print(f"Celular: {celular}")
     print(f"Email: {email}")
 
-    return f"Cliente registrado correctamente. Nombre {nombre} y apellido {apellido}"
+    flash(f'Cliente registrado correctamente. Nombre {nombre} y apellido {apellido}')
+    return redirect(url_for('nuevo_cliente'))
 
 #####Nuevo personal
 @app.route('/templates/form_personal', methods=['GET'])
@@ -96,19 +99,20 @@ def nuevo_personal():
 @app.route('/templates/form_personal', methods=['POST'])
 def crear_personal():
     nombre = request.form.get('nombrePersonal')
-    apellidos = request.form.get('apellidoPersonal')
+    apellido = request.form.get('apellidoPersonal')
     celular = request.form.get('numero_celular')
     email = request.form.get('email')
     cargo = request.form.get('cargo')
 
     # Mostrar en la terminal los datos recibidos
     print(f"Nombre: {nombre}")
-    print(f"Precio: {apellidos}")
+    print(f"Precio: {apellido}")
     print(f"Celular: {celular}")
     print(f"Email: {email}")   
     print(f"Cargo: {cargo}")
     
-    return f"Personal registrado correctamente. Nombre {nombre} y apellido {apellidos}"
+    flash(f'Trabajador registrado correctamente. Nombre {nombre} y apellido {apellido}')
+    return redirect(url_for('nuevo_personal'))
 
 if __name__=='__main__':
     app.run(debug = True) 
