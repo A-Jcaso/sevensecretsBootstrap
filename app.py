@@ -47,55 +47,68 @@ def send_email():
 def contacts():
     return render_template("contacts.html")
 
-@app.route('/templates/form_servicio', methods=['GET'])
-def nuevo_producto():
-    return render_template('form_servicio.html')
+#####Nuevo tratamiento
+@app.route('/templates/form_tratamiento', methods=['GET'])
+def nuevo_tratamiento():
+    return render_template('form_tratamiento.html')
 
 # Ruta para procesar el formulario
-@app.route('/templates/form_servicio', methods=['POST'])
-def crear_producto():
-    nombre = request.form.get('nombre')
-    precio = request.form.get('precio')
+@app.route('/templates/form_tratamiento', methods=['POST'])
+def crear_tratamiento():
+    nombre = request.form.get('nombreTratamiento')
+    descripcion = request.form.get('descripcion')
+    img = request.form.get('imagen')
 
     # Mostrar en la terminal los datos recibidos
     print(f"Nombre: {nombre}")
-    print(f"Precio: {precio}")
+    print(f"Descripcion: {descripcion}")
+    print(f"Imagen: {img}")
 
-    return f"Producto '{nombre}' con precio {precio} recibido correctamente"
+    return f"Tratamiento registrado correctamente. {nombre}"
 
-
+######Nuevo cliente
 @app.route('/templates/form_clientes', methods=['GET'])
-def nuevo_producto():
+def nuevo_cliente():
     return render_template('form_clientes.html')
 
 # Ruta para procesar el formulario
 @app.route('/templates/form_clientes', methods=['POST'])
-def crear_producto():
-    nombre = request.form.get('nombre')
-    precio = request.form.get('precio')
+def crear_cliente():
+    nombre = request.form.get('nombreCliente')
+    apellido = request.form.get('apellidoCliente')
+    celular = request.form.get('numero_celular')
+    email = request.form.get('email')
 
     # Mostrar en la terminal los datos recibidos
     print(f"Nombre: {nombre}")
-    print(f"Precio: {precio}")
+    print(f"Apellido: {apellido}")
+    print(f"Celular: {celular}")
+    print(f"Email: {email}")
 
-    return f"Producto '{nombre}' con precio {precio} recibido correctamente"
+    return f"Cliente registrado correctamente. Nombre {nombre} y apellido {apellido}"
 
-
+#####Nuevo personal
 @app.route('/templates/form_personal', methods=['GET'])
-def nuevo_producto():
+def nuevo_personal():
     return render_template('form_personal.html')
 
 # Ruta para procesar el formulario
 @app.route('/templates/form_personal', methods=['POST'])
-def crear_producto():
-    nombre = request.form.get('nombre')
-    precio = request.form.get('precio')
+def crear_personal():
+    nombre = request.form.get('nombrePersonal')
+    apellidos = request.form.get('apellidoPersonal')
+    celular = request.form.get('numero_celular')
+    email = request.form.get('email')
+    cargo = request.form.get('cargo')
 
     # Mostrar en la terminal los datos recibidos
     print(f"Nombre: {nombre}")
-    print(f"Precio: {precio}")
-
-    return f"Producto '{nombre}' con precio {precio} recibido correctamente"
+    print(f"Precio: {apellidos}")
+    print(f"Celular: {celular}")
+    print(f"Email: {email}")   
+    print(f"Cargo: {cargo}")
+    
+    return f"Personal registrado correctamente. Nombre {nombre} y apellido {apellidos}"
 
 if __name__=='__main__':
     app.run(debug = True) 

@@ -74,31 +74,23 @@
         </div>
     </header>
     <body>
-        <h2 style="text-align: center;">Registre nuevo trabajador</h2>
+        <h2 style="text-align: center;">Registre nuevo tratamiento</h2>
         <div class="contenedor">
             <P>Datos principales</p>
             <!--Formulario de contacto para enviar un correo electrónico-->
-            <form action="/templates/form_personal" method="POST">
+            <form action="/templates/form_tratamiento" method="POST">
                 <div class="mb-3">
-                    <label for="nombrePersonal" class="form-label">Nombre(s):</label>
-                    <input type="text" class="form-control" id="nombrePersonal" name="nombrePersonal" required>
+                    <label for="nombreCliente" class="form-label">Nombre del tratamiento:</label>
+                    <input type="text" class="form-control" id="nombreCliente" name="nombreTratamiento" required>
                 </div>
                 <div class="mb-3">
-                    <label for="apellidoCliente" class="form-label">Apellidos:</label>
-                    <input type="text" class="form-control" id="apellidoCliente" name="apellidoPersonal" required>
+                    <label for="apellidoCliente" class="form-label">Descripción:</label>
+                    <input type="text" class="form-control" id="apellidoCliente" name="descripcion" required>
                 </div>
                 <div class="mb-3">
-                  <label for="numero_celular" class="form-label">Número de Celular:</label>
-                  <input type="text" class="form-control" id="numero_celular" name="numero_celular" required>
+                  <label for="numero_celular" class="form-label">Imagen de referencia:</label>
+                  <input type="url" class="form-control" id="numero_celular" name="imagen" required>
               </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Correo Electrónico:</label>
-                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="correo@gmail.com"required>
-                </div>
-                <div class="mb-3">
-                    <label for="cargo" class="form-label">Cargo:</label>
-                    <input type="text" class="form-control" id="cargo" name="cargo" required>
-                </div>
                 <button type="submit" class="btn btn-danger">Guardar</button>
             </form>
             <div class="button">
