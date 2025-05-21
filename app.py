@@ -1,4 +1,5 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, jsonify
+from flask_sqlalchemy import SQLAlchemy
 from models import Services
 from send_email import send_email as send_email_function
 import sqlite3
@@ -8,6 +9,24 @@ conexion = sqlite3.connect("sevensecrets_db.db",
 
 app = Flask(__name__)
 app.secret_key = '1234'
+
+# MySQL configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ahsedlik_myuser:70077307hs@mysql-ahsedlik.alwaysdata.net/ahsedlik_mydb'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Initialize the database
+db = SQLAlchemy(app)
+
+# Define a model (table) in MySQL
+class Cliente(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    apellido = db.Column(db.String(120), unique=True, nullable=False)
+    celular = db.Column(db.String(120), unique=True, nullable=False)
+    def __repr__(self):
+        return f'<User {self.username}>'
+    
 
 @app.route("/") 
 def home():
@@ -68,9 +87,29 @@ def crear_tratamiento():
     flash('Tratamiento registrado correctamente')
     return redirect(url_for('nuevo_tratamiento'))
 
+# Route to add a new user
+@app.route('/add', methods=['GET'])
+def add_user():
+    import random
+    random_number = random.randint(10, 1000)
+
+    username = str(random_number) + "user"
+    email = str(random_number) + "user@gmail.com"
+    new_user = haro(username=username, email=email)
+    db.session.add(new_user)
+    db.session.commit()
+    return redirect('/')
+
 ######Nuevo cliente
 @app.route('/templates/form_clientes', methods=['GET'])
 def nuevo_cliente():
+    nombre = request.form.get('nombreCliente')
+    apellido = request.form.get('apellidoCliente')
+    celular = request.form.get('numero_celular')
+    email = request.form.get('email')
+    new_user = Cliente(username=nombre,apellido = apellido,celular=celular, email=email)
+    db.session.add(new_user)
+    db.session.commit()
     return render_template('form_clientes.html')
 
 # Ruta para procesar el formulario
@@ -114,7 +153,11 @@ def crear_personal():
     flash(f'Trabajador registrado correctamente. Nombre {nombre} y apellido {apellido}')
     return redirect(url_for('nuevo_personal'))
 
-if __name__=='__main__':
-    app.run(debug = True) 
+
+
+
     
-    
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)
