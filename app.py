@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.secret_key = '1234'
 
 # MySQL configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ahsedlik_myuser:70077307hs@mysql-ahsedlik.alwaysdata.net/ahsedlik_mydb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ahsedlik_myuser:70077307hs@mysql-ahsedlik.alwaysdata.net/ahsedlik_seven_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the database
@@ -20,13 +20,34 @@ db = SQLAlchemy(app)
 # Define a model (table) in MySQL
 class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    apellido = db.Column(db.String(120), unique=True, nullable=False)
-    celular = db.Column(db.String(120), unique=True, nullable=False)
+    cli_nombre = db.Column(db.String(80), unique=False, nullable=False)
+    cli_apellido = db.Column(db.String(120), unique=False, nullable=False)
+    cli_dni = db.Column(db.String(120), unique=True, nullable=False)
+    cli_email = db.Column(db.String(120), unique=True, nullable=False)
+    cli_celular = db.Column(db.String(120), unique=True, nullable=False)
+    def __repr__(self):
+        return f'<User {self.username}>'
+
+class Personal(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    per_nombre = db.Column(db.String(80), unique=False, nullable=False)
+    per_apellido = db.Column(db.String(120), unique=False, nullable=False)
+    per_dni = db.Column(db.String(120), unique=True, nullable=False)
+    per_email = db.Column(db.String(120), unique=True, nullable=False)
+    per_celular = db.Column(db.String(120), unique=True, nullable=False)
+    per_cargo = db.Column(db.String(120), unique=False, nullable=False)
+
     def __repr__(self):
         return f'<User {self.username}>'
     
+class Tratamiento(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tra_nombre = db.Column(db.String(80), unique=False, nullable=False)
+    tra_descripcion = db.Column(db.String(120), unique=False, nullable=False)
+    tra_imagen = db.Column(db.String(120), unique=False, nullable=False)
+
+    def __repr__(self):
+        return f'<User {self.username}>'
 
 @app.route("/") 
 def home():
@@ -67,7 +88,7 @@ def send_email():
 def contacts():
     return render_template("contacts.html")
 
-#####Nuevo tratamiento
+################Nuevo tratamiento###################################
 @app.route('/templates/form_tratamiento', methods=['GET'])
 def nuevo_tratamiento():
     return render_template('form_tratamiento.html')
@@ -79,37 +100,26 @@ def crear_tratamiento():
     descripcion = request.form.get('descripcion')
     img = request.form.get('imagen')
 
+    if not nombre or not descripcion or not img:
+        flash("Todos los campos son obligatorios")
+        return redirect(url_for('nuevo_tratamiento'))
+    
+    new_tratamiento = Tratamiento(tra_nombre=nombre, tra_descripcion=descripcion, tra_imagen=img)
+    db.session.add(new_tratamiento)
+    db.session.commit()
+    
     # Mostrar en la terminal los datos recibidos
     print(f"Nombre: {nombre}")
     print(f"Descripcion: {descripcion}")
-    print(f"Imagen: {img}")
+    print(f"Imagen link: {img}")
 
     flash('Tratamiento registrado correctamente')
     return redirect(url_for('nuevo_tratamiento'))
 
-# Route to add a new user
-@app.route('/add', methods=['GET'])
-def add_user():
-    import random
-    random_number = random.randint(10, 1000)
+########################Nuevo cliente####################################
 
-    username = str(random_number) + "user"
-    email = str(random_number) + "user@gmail.com"
-    new_user = haro(username=username, email=email)
-    db.session.add(new_user)
-    db.session.commit()
-    return redirect('/')
-
-######Nuevo cliente
 @app.route('/templates/form_clientes', methods=['GET'])
 def nuevo_cliente():
-    nombre = request.form.get('nombreCliente')
-    apellido = request.form.get('apellidoCliente')
-    celular = request.form.get('numero_celular')
-    email = request.form.get('email')
-    new_user = Cliente(username=nombre,apellido = apellido,celular=celular, email=email)
-    db.session.add(new_user)
-    db.session.commit()
     return render_template('form_clientes.html')
 
 # Ruta para procesar el formulario
@@ -117,19 +127,30 @@ def nuevo_cliente():
 def crear_cliente():
     nombre = request.form.get('nombreCliente')
     apellido = request.form.get('apellidoCliente')
+    dni = request.form.get('dni')
     celular = request.form.get('numero_celular')
     email = request.form.get('email')
 
+    if not nombre or not apellido or not celular or not email:
+        flash("Todos los campos son obligatorios")
+        return redirect(url_for('nuevo_cliente'))
+
+    new_user = Cliente(cli_nombre=nombre, cli_apellido=apellido, cli_dni=dni, cli_celular=celular, cli_email=email)
+    db.session.add(new_user)
+    db.session.commit()
+    
     # Mostrar en la terminal los datos recibidos
     print(f"Nombre: {nombre}")
     print(f"Apellido: {apellido}")
+    print(f"DNI: {dni}")
     print(f"Celular: {celular}")
     print(f"Email: {email}")
 
     flash(f'Cliente registrado correctamente. Nombre {nombre} y apellido {apellido}')
     return redirect(url_for('nuevo_cliente'))
 
-#####Nuevo personal
+########################Nuevo personal######################################
+
 @app.route('/templates/form_personal', methods=['GET'])
 def nuevo_personal():
     return render_template('form_personal.html')
@@ -139,23 +160,29 @@ def nuevo_personal():
 def crear_personal():
     nombre = request.form.get('nombrePersonal')
     apellido = request.form.get('apellidoPersonal')
+    dni = request.form.get('dni')
     celular = request.form.get('numero_celular')
     email = request.form.get('email')
     cargo = request.form.get('cargo')
 
     # Mostrar en la terminal los datos recibidos
     print(f"Nombre: {nombre}")
-    print(f"Precio: {apellido}")
+    print(f"Apellido: {apellido}")
+    print(f"DNI: {dni}")
     print(f"Celular: {celular}")
     print(f"Email: {email}")   
     print(f"Cargo: {cargo}")
     
+    if not nombre or not apellido or not dni or not celular or not email or not cargo:
+        flash("Todos los campos son obligatorios")
+        return redirect(url_for('nuevo_personal'))
+
+    new_staff = Personal(per_nombre=nombre, per_apellido=apellido,per_dni=dni, per_celular=celular, per_email=email, per_cargo=cargo)
+    db.session.add(new_staff)
+    db.session.commit()
+    
     flash(f'Trabajador registrado correctamente. Nombre {nombre} y apellido {apellido}')
     return redirect(url_for('nuevo_personal'))
-
-
-
-
     
 if __name__ == '__main__':
     with app.app_context():
