@@ -210,7 +210,6 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for p in data.services %}
         <div class="col">
-          
           <div class="card shadow-sm">
             <img src="{{ p.image }}" class="card-img-top img-fluid" alt="..." style="height: 225px; object-fit: cover;">
             <div class="card-body">
@@ -221,11 +220,9 @@
                   <a href="/detail{{ p.id }}"class="btn btn-sm btn-ligth">VER</a>
                   <a href="booking" type="button" class="btn btn-sm btn-danger">RESERVAR</a>
                 </div>
-                <small class="text-body-secondary">9 mins</small>
               </div>
             </div>
           </div>
-          
         </div>
         {% endfor %} 
       </div>
