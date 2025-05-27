@@ -203,32 +203,30 @@
       </li>
     </div> 
   </section>
-
   <div class="album py-5 bg-body-tertiary">
     <div class="container">
       <h4>NUESTROS TRATAMIENTOS</h4>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for p in data.services %}
+        {% for t in tratamientos %}
         <div class="col">
           <div class="card shadow-sm">
-            <img src="{{ p.image }}" class="card-img-top img-fluid" alt="..." style="height: 225px; object-fit: cover;">
+            <img src="{{ t.tra_imagen }}" class="card-img-top img-fluid" alt="..." style="height: 225px; object-fit: cover;">
             <div class="card-body">
-              <h4 class="card-title">{{ p.name }}</h4>
-              <p class="card-text">{{ p.description }}</p>
+              <h4 class="card-title">{{ t.tra_nombre }}</h4>
+              <p class="card-text">{{ t.tra_descripcion }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <a href="/detail{{ p.id }}"class="btn btn-sm btn-ligth">VER</a>
+                  <!-- Opcionalmente puedes agregar botones para cada tratamiento -->
                   <a href="booking" type="button" class="btn btn-sm btn-danger">RESERVAR</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {% endfor %} 
+        {% endfor %}
       </div>
     </div>
   </div>
-
 </main>
 
 <footer class="text-body-secondary py-5">
