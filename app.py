@@ -14,14 +14,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # Define a model (table) in MySQL
-class Services(db.Model):
-    __tablename__ = 'services'  # asegúrate de que coincida con tu tabla de MySQL
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    description = db.Column(db.String(255))
-    detail = db.Column(db.Text)
-    image = db.Column(db.String(255))
-
 class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cli_nombre = db.Column(db.String(80), unique=False, nullable=False)
@@ -55,18 +47,16 @@ class Tratamiento(db.Model):
 
 @app.route("/")
 def home():
-    services = Services.query.all()
-    tratamientos = Tratamiento.query.all()   # <-- consulta todos los tratamientos
-    return render_template("home.html", services=services, tratamientos=tratamientos)
-
-
-@app.route("/detail<int:service_id>")
-def service_detail(service_id):
-    service = Services.query.get(service_id)
-    if service:
-        return render_template("detail.html", service=service)
+    tratamientos = Tratamiento.query.all()
+    return render_template("home.html", tratamientos=tratamientos)
+###TALVEZ BORRAR ESTA RUTAAAA###########################################################
+@app.route("/tratamiento/<int:id>")
+def tratamiento_detail(id):
+    tratamiento = Tratamiento.query.get(id)
+    if tratamiento:
+        return render_template("detail.html", tratamiento=tratamiento)
     else:
-        return "Servicio no encontrado", 404
+        return "Tratamiento no encontrado", 404
 
 @app.route("/booking")
 def booking():
