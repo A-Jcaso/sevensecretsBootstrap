@@ -22,7 +22,7 @@ class Cliente(db.Model):
     cli_email = db.Column(db.String(120), unique=True, nullable=False)
     cli_celular = db.Column(db.String(120), unique=True, nullable=False)
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f'<Cliente {self.cli_nombre} {self.cli_apellido}>'
 
 class Personal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -34,7 +34,7 @@ class Personal(db.Model):
     per_cargo = db.Column(db.String(120), unique=False, nullable=False)
 
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f'<Personal {self.per_nombre} {self.per_apellido}>'
     
 class Tratamiento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -43,7 +43,7 @@ class Tratamiento(db.Model):
     tra_imagen = db.Column(db.String(120), unique=False, nullable=False)
 
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f'<Cliente {self.tra_nombre} {self.tra_descripcion}>'
 
 @app.route("/")
 def home():
@@ -62,7 +62,7 @@ def tratamiento_detail(id):
 def booking():
         return render_template("booking.html")
 
-@app.route('/send-email', methods=['POST']) 
+@app.route('/send-email', methods=['POST'])
 def send_email():
     if request.method == 'POST':
         nombre_cliente = request.form['nombreCliente']

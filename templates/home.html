@@ -211,9 +211,11 @@
         <div class="col">
           <div class="card shadow-sm">
             <img src="{{ t.tra_imagen }}" class="card-img-top img-fluid" alt="..." style="height: 225px; object-fit: cover;">
-            <div class="card-body">
+            <div class="card-body" style="height: auto;">
               <h4 class="card-title">{{ t.tra_nombre }}</h4>
-              <p class="card-text">{{ t.tra_descripcion }}</p>
+              <p class="card-text">
+              {{ t.tra_descripcion }}...
+              </p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a href="booking" class="btn btn-sm btn-danger">RESERVAR</a>
