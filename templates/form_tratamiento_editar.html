@@ -74,44 +74,26 @@
         </div>
     </header>
     <body>
-        <h2 style="text-align: center;">Registre nuevo tratamiento</h2>
+        <h2 style="text-align: center;">Editar Tratamiento</h2>
         <div class="contenedor">
-            <P>Datos principales</p>
-            <form action="/templates/form_tratamiento" method="POST">
+            <P><strong>Datos principales a editar</strong></p>
+            <form action="{{ url_for('actualizar_tratamiento', id=tratamiento.id) }}" method="POST">
                 <div class="mb-3">
-                    <label for="nombreTratamiento" class="form-label">Nombre del tratamiento:</label>
-                    <input type="text" class="form-control" id="nombreTratamiento" name="nombreTratamiento" required>
+                  <label for="nombreTratamiento" class="form-label">Nombre del Tratamiento</label>
+                  <input type="text" class="form-control" name="nombreTratamiento" value="{{ tratamiento.tra_nombre }}" required>
+                </div> 
+                <div class="mb-3">
+                  <label for="descripcion" class="form-label">Descripción</label>
+                  <input type="text" class="form-control" name="descripcion" value="{{ tratamiento.tra_descripcion }}" required>
                 </div>
                 <div class="mb-3">
-                    <label for="descripcion" class="form-label">Descripción:</label>
-                    <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                  <label for="imagen" class="form-label">Imagen URL</label>
+                  <input type="url" class="form-control" name="imagen" value="{{ tratamiento.tra_imagen }}" required>
                 </div>
-                <div class="mb-3">
-                  <label for="imagen" class="form-label">Imagen de referencia:</label>
-                  <input type="url" class="form-control" id="imagen" name="imagen" required>
-              </div>
                 <button type="submit" class="btn btn-danger">Guardar</button>
             </form>
-            <hr>
-            <h4>Tratamientos registrados</h4>
-            <ul class="list-group">
-                {% for tratamiento in tratamientos %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>{{ tratamiento.tra_nombre }}</strong><br>
-                        <small>{{ tratamiento.tra_descripcion }}</small>
-                    </div>
-                    <div class="d-flex gap-2">
-                        <a href="{{ url_for('editar_tratamiento', id=tratamiento.id) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{{ url_for('eliminar_tratamiento', id=tratamiento.id) }}" method="POST" onsubmit="return confirm('¿Seguro que quieres eliminar este tratamiento?');">
-                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                        </form>
-                    </div>
-                </li>
-                {% endfor %}
-            </ul>
             <div class="button">
-                <a href="/" class="btn btn-secondary my-2">Volver al inicio</a>
+                <a href="/templates/form_tratamiento" class="btn btn-secondary my-2">Volver a agregar tratamiento</a>
             </div>
         </div>
     </body>

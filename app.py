@@ -81,7 +81,8 @@ def contacts():
 ################Nuevo tratamiento###################################
 @app.route('/templates/form_tratamiento', methods=['GET'])
 def nuevo_tratamiento():
-    return render_template('form_tratamiento.html')
+    tratamientos = Tratamiento.query.all()
+    return render_template('form_tratamiento.html', tratamientos=tratamientos)
 
 # Ruta para procesar el formulario
 @app.route('/templates/form_tratamiento', methods=['POST'])
@@ -106,6 +107,31 @@ def crear_tratamiento():
     flash('Tratamiento registrado correctamente')
     return redirect(url_for('nuevo_tratamiento'))
 
+#RUTA PARA ELIMINAR TRATAMIENTOS
+@app.route('/eliminar_tratamiento/<int:id>', methods=['POST'])
+def eliminar_tratamiento(id):
+    tratamiento = Tratamiento.query.get_or_404(id)
+    db.session.delete(tratamiento)
+    db.session.commit()
+    flash(f'Tratamiento "{tratamiento.tra_nombre}" eliminado correctamente.')
+    return redirect(url_for('nuevo_tratamiento'))
+
+#RUTA PARA EDITAR TRATAMIENTOS
+@app.route('/editar_tratamiento/<int:id>', methods=['GET'])
+def editar_tratamiento(id):
+    tratamiento = Tratamiento.query.get_or_404(id)
+    return render_template('form_tratamiento_editar.html', tratamiento=tratamiento)
+
+@app.route('/editar_tratamiento/<int:id>', methods=['POST'])
+def actualizar_tratamiento(id):
+    tratamiento = Tratamiento.query.get_or_404(id)
+    tratamiento.tra_nombre = request.form['nombreTratamiento']
+    tratamiento.tra_descripcion = request.form['descripcion']
+    tratamiento.tra_imagen = request.form['imagen']
+    
+    db.session.commit()
+    flash('Tratamiento actualizado correctamente.')
+    return redirect(url_for('nuevo_tratamiento'))
 ########################Nuevo cliente####################################
 
 @app.route('/templates/form_clientes', methods=['GET'])
